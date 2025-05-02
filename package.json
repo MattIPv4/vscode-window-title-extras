@@ -1,0 +1,33 @@
+{
+  "name": "vscode-window-title-extras",
+  "version": "1.0.0",
+  "description": "VSCode extension that provides additional window title variables.",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "scripts": {
+    "build": "tsup-node src/index.ts --format cjs --dts --sourcemap --clean",
+    "watch": "npm run build -- --watch",
+    "prepare": "husky",
+    "lint": "prettier --check .",
+    "format": "prettier --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MattIPv4/vscode-window-title-extras.git"
+  },
+  "author": "Matt (IPv4) Cowley",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/MattIPv4/vscode-window-title-extras/issues"
+  },
+  "homepage": "https://github.com/MattIPv4/vscode-window-title-extras#readme",
+  "devDependencies": {
+    "@types/node": "~22.15.3",
+    "@types/vscode": "^1.99.1",
+    "husky": "^9.1.7",
+    "lint-staged": "^15.5.1",
+    "prettier": "^3.5.3",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.3"
+  }
+}
