@@ -1,67 +1,62 @@
 import * as vscode from "vscode";
 
-const key = (key: string) => `vscode-window-title-extras:${key}`;
+const prefix = "vscode-window-title-extras:";
 
-const reset = async () => {
-  await vscode.commands.executeCommand(
-    "setContext",
-    key("parentPath"),
-    undefined,
-  );
-  await vscode.commands.executeCommand(
-    "setContext",
-    key("parentName"),
-    undefined,
-  );
-};
+const keys = {
+  parentPath: () => {
+    const folder = vscode.workspace.workspaceFolders?.[0];
+    if (!folder) return;
 
-const refresh = async () => {
-  const workspaceFolder = vscode.workspace.workspaceFolders?.[0];
-  if (!workspaceFolder) {
-    await reset();
-    console.log("vscode-window-title-extras: no workspace folder");
-    return;
-  }
+    const path = folder.uri.path;
+    return path.split("/").slice(0, -1).join("/");
+  },
+  parentName: () => {
+    const folder = vscode.workspace.workspaceFolders?.[0];
+    if (!folder) return;
 
-  const workspacePath = workspaceFolder.uri.path;
+    const path = folder.uri.path;
+    return path.split("/").slice(0, -1).pop();
+  },
+} as const satisfies Record<string, () => string | undefined>;
 
-  const workspaceParentPath = workspacePath.substring(
-    0,
-    workspacePath.lastIndexOf("/"),
+const reset = () =>
+  Promise.all(
+    Object.keys(keys).map((key) =>
+      vscode.commands.executeCommand(
+        "setContext",
+        `${prefix}${key}`,
+        undefined,
+      ),
+    ),
   );
-  await vscode.commands.executeCommand(
-    "setContext",
-    key("parentPath"),
-    workspaceParentPath,
-  );
-  console.log("vscode-window-title-extras: parentPath", workspaceParentPath);
 
-  const workspaceParentName = workspaceParentPath.substring(
-    workspaceParentPath.lastIndexOf("/") + 1,
+const refresh = () =>
+  Promise.all(
+    Object.entries(keys).map(([key, get]) => {
+      const value = get();
+      console.log(`${prefix} ${key}: ${value}`);
+      return vscode.commands.executeCommand(
+        "setContext",
+        `${prefix}${key}`,
+        value,
+      );
+    }),
   );
-  await vscode.commands.executeCommand(
-    "setContext",
-    key("parentName"),
-    workspaceParentName,
-  );
-  console.log("vscode-window-title-extras: parentName", workspaceParentName);
-};
 
 export const activate = async (context: vscode.ExtensionContext) => {
-  console.log("vscode-window-title-extras: activated");
+  console.log(`${prefix} activated`);
   await refresh();
 
   // Support added in https://github.com/microsoft/vscode/pull/225408
   // Earliest version for https://github.com/microsoft/vscode/commit/b23a5000f08f3de1e0aa493c88c376e4196f49c1 is 1.93.0
-  await vscode.commands.executeCommand(
-    "registerWindowTitleVariable",
-    "parentPath",
-    key("parentPath"),
-  );
-  await vscode.commands.executeCommand(
-    "registerWindowTitleVariable",
-    "parentName",
-    key("parentName"),
+  await Promise.all(
+    Object.keys(keys).map((key) =>
+      vscode.commands.executeCommand(
+        "registerWindowTitleVariable",
+        key,
+        `${prefix}${key}`,
+      ),
+    ),
   );
 
   context.subscriptions.push(
@@ -70,6 +65,6 @@ export const activate = async (context: vscode.ExtensionContext) => {
 };
 
 export const deactivate = async () => {
-  console.log("vscode-window-title-extras: deactivated");
+  console.log(`${prefix} deactivated`);
   await reset();
 };
