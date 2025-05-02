@@ -24,7 +24,7 @@
   "homepage": "https://github.com/MattIPv4/vscode-window-title-extras#readme",
   "devDependencies": {
     "@types/node": "~22.15.3",
-    "@types/vscode": "^1.99.1",
+    "@types/vscode": "~1.93.0",
     "@vscode/vsce": "^3.3.2",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
@@ -40,9 +40,9 @@
     "LICENSE"
   ],
   "engines": {
-    "vscode": "^1.0.0"
+    "vscode": "^1.93.0"
   },
   "activationEvents": [
-    "*"
+    "onStartupFinished"
   ]
 }
