@@ -6,6 +6,7 @@
   "main": "dist/index.cjs",
   "scripts": {
     "build": "tsup-node src/index.ts --format cjs --dts --sourcemap --clean",
+    "vscode:prepublish": "npm run build",
     "watch": "npm run build -- --watch",
     "prepare": "husky",
     "lint": "prettier --check .",
@@ -24,10 +25,24 @@
   "devDependencies": {
     "@types/node": "~22.15.3",
     "@types/vscode": "^1.99.1",
+    "@vscode/vsce": "^3.3.2",
     "husky": "^9.1.7",
     "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "tsup": "^8.4.0",
     "typescript": "^5.8.3"
-  }
+  },
+  "publisher": "MattIPv4",
+  "displayName": "VSCode Window Title Extras",
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "vscode": "^1.0.0"
+  },
+  "activationEvents": [
+    "*"
+  ]
 }
