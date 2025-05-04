@@ -63,3 +63,23 @@ code --install-extension <path-to-vsix-file>
 ```
 
 Once installed, restart VSCode (or invoke `Developer: Reload Window` in the command palette) to start using the extension.
+
+## Release
+
+### 0. Update the version
+
+```bash
+npm version <major|minor|patch>
+```
+
+### 1. Create Azure DevOps token
+
+- Access the [Azure DevOps](https://dev.azure.com/) portal.
+- Go to `User settings` > `Personal access tokens`.
+- Create a new token with the `Marketplace: Manage` scope.
+
+### 2. Build + publish the extension
+
+```bash
+npx vsce publish
+```
