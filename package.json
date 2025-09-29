@@ -1,7 +1,7 @@
 {
   "name": "vscode-window-title-extras",
-  "version": "1.0.0",
-  "description": "VSCode extension that provides additional window title variables.",
+  "version": "1.0.1",
+  "description": "Additional variables such as the parent folder name and path for use in the `window.title` VSCode setting.",
   "type": "module",
   "main": "dist/index.cjs",
   "scripts": {
@@ -33,7 +33,7 @@
     "typescript": "^5.8.3"
   },
   "publisher": "MattIPv4",
-  "displayName": "VSCode Window Title Extras",
+  "displayName": "Window Title Extras",
   "files": [
     "dist",
     "README.md",

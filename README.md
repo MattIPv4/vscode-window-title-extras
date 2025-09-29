@@ -1,11 +1,13 @@
-# VSCode Window Title Extras
+# Window Title Extras (for VSCode)
 
-VSCode extension that provides additional window title variables.
+Additional variables such as the parent folder name and path for use in the `window.title` VSCode setting.
 
 The following variables are exposed by this extension for use in `window.title`:
 
 - `${parentPath}`: file path of the parent folder to the current workspace folder (e.g. /Users/Development).
 - `${parentName}`: name of the parent folder to the current workspace folder (e.g. Development).
+
+For example, if you organize your GitHub projects on disk in the format `GitHub/<username>/<repository>`, you can set your window title to `${parentName}/${folderName}` to show the GitHub username and repository name in the window title.
 
 ## Development
 
@@ -69,7 +71,7 @@ Once installed, restart VSCode (or invoke `Developer: Reload Window` in the comm
 ### 0. Update the version
 
 ```bash
-npm version <major|minor|patch>
+npm version <major|minor|patch> --no-git-tag-version
 ```
 
 ### 1. Create Azure DevOps token
