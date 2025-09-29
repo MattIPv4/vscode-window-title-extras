@@ -76,12 +76,14 @@ npm version <major|minor|patch> --no-git-tag-version
 
 ### 1. Create Azure DevOps token
 
-- Access the [Azure DevOps](https://dev.azure.com/) portal.
-- Go to `User settings` > `Personal access tokens`.
+- Sign in to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/).
+- Access your [Azure DevOps Profile](https://aex.dev.azure.com/me) (from the Visual Studio Marketplace navbar).
+- Access your [Azure DevOps](https://dev.azure.com/) organization (from the Azure DevOps Profile page).
+- Go to `User settings` (in the Azure DevOps navbar) > `Personal access tokens`.
 - Create a new token with the `Marketplace: Manage` scope.
 
 ### 2. Build + publish the extension
 
 ```bash
-npx vsce publish
+VSCE_PAT=$TOKEN npx vsce publish
 ```
